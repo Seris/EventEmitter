@@ -1,7 +1,8 @@
 /**
- * Event Emitter (Node.JS Implementation)
- * From Seris (@Serris_) seerriss@gmail.com
- * License : GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007 (https://www.gnu.org/licenses/gpl-3.0.txt)
+ * Event Emitter (Node.JS => Browser)
+ * Created by Seris (Twitter: @Serris_) seerriss@gmail.com
+ * License: GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007 (https://www.gnu.org/licenses/gpl-3.0.txt)
+ * URL: https://github.com/Seris/EventEmitter
  **/
 
 (function () {
