@@ -19,8 +19,8 @@
             return 0;
         }
 
-        if (emitter._events[arguments[1]]) {
-            return emitter._events[arguments[1]].length;
+        if (emitter._events[event]) {
+            return emitter._events[event].length;
         } else {
             return 0;
         }
