@@ -85,37 +85,35 @@
     };
 
     // Fire Event
-    EventEmitter.prototype.emit = function (event, data) {
-        if (typeof event !== "string") {
-            throw new TypeError("Expected string for event ! " + typeof event + " given !");
+    EventEmitter.prototype.emit = function () {
+        if (typeof arguments[0] !== "string") {
+            throw new TypeError("Expected string for event ! " + typeof arguments[0] + " given !");
         }
+
+        var event = arguments[0];
 
         if (!this._events[event]) {
             return;
         }
 
-        delete arguments[0];
-        for (var id in arguments) {
-            arguments[id - 1] = arguments[id];
-            delete arguments[id];
-        };
+        var args = new Array(arguments.length);
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
 
         for (var i = 0; i < this._events[event].length; i++) {
             switch (typeof this._events[event][i]) {
             case "function":
-                this._events[event][i].apply(this, arguments);
+                this._events[event][i].apply(this, args);
                 break;
 
             case "object":
-                this._events[event][i].listener.apply(this, arguments);
+                this._events[event][i].listener.apply(this, args);
                 this._events[event].splice(i, 1)
                 break;
             }
         }
 
-        for (var id in arguments) {
-            delete arguments[id];
-        }
     };
 
     // Remove Event
