@@ -101,19 +101,29 @@
             args[i - 1] = arguments[i];
         }
 
+        var self = this;
+
         for (var i = 0; i < this._events[event].length; i++) {
             switch (typeof this._events[event][i]) {
             case "function":
-                this._events[event][i].apply(this, args);
+                (function (fn) {
+                    setTimeout(function () {
+                        fn.apply(this, args);
+                    }, 0);
+                }).call(this, this._events[event][i]);
                 break;
 
             case "object":
-                this._events[event][i].listener.apply(this, args);
-                this._events[event].splice(i, 1)
+                var fn = this._events[event].splice(i, 1)[0];
+                (function (fn) {
+                    setTimeout(function () {
+                        fn.listener.apply(this, args);
+                    }, 0);
+                    i--;
+                }).call(this, fn);
                 break;
             }
         }
-
     };
 
     // Remove Event
